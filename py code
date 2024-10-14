@@ -1,0 +1,28 @@
+import random
+print("Welcome to the Fermi-Pico-Bagel Game!")
+digits = list(range(10))
+random.shuffle(digits)
+secret_number_list = digits[:3]
+secret_number = ''.join(map(str, secret_number_list))
+attempts = 0
+while True:
+    guess = input("Enter your guess (3 unique digits): ")
+    if len(guess) != 3 or not guess.isdigit() or len(set(guess)) != 3:
+        print("Invalid guess! Please enter a 3-digit number with unique digits.")
+        continue
+    attempts += 1
+    clues = []
+    for i in range(3):
+        if guess[i] == secret_number[i]:
+            clues.append("Fermi")
+        elif guess[i] in secret_number:
+            clues.append("Pico")
+    if not clues:
+        print("Bagel")
+    else:
+        clues.sort()
+        print(' '.join(clues))
+    
+    if guess == secret_number:
+        print(f"Congratulations! You guessed the number in {attempts} attempts.")
+        break
